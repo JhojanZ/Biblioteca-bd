@@ -26,16 +26,21 @@ db.connect((err) => {
     console.log('Connected to database.');
 });
 
-// API endpoint to get books
+
 app.get('/api/books', (req, res) => {
-    const query = 'SELECT * FROM Libros LIMIT 2';
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
+
+    const query = `SELECT * FROM Libros LIMIT ${limit} OFFSET ${offset}`;
     db.query(query, (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Database query failed' });
         }
-        res.json(results);
+        res.json({ books: results });
     });
 });
+
 
 // Start the server
 app.listen(port, () => {

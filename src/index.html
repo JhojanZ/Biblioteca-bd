@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Library</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,8 +31,27 @@
 
     <div class="container mt-4">
         <h1 class="text-center">Book List</h1>
+    
+        <!-- Controles de paginación -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <label for="books-per-page">Books per page:</label>
+                <select id="books-per-page" class="form-control d-inline-block" style="width: auto;">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+            <div>
+                <button id="prev-page" class="btn btn-secondary" disabled>Previous</button>
+                <button id="next-page" class="btn btn-secondary">Next</button>
+            </div>
+        </div>
+    
+        <!-- Contenedor de la lista de libros -->
         <div id="book-list" class="row">
-            <!-- Book items will be dynamically populated here -->
+            <!-- Aquí se cargarán dinámicamente las tarjetas de libros -->
         </div>
     </div>
 
