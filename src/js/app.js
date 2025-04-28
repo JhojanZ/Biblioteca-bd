@@ -1,7 +1,7 @@
 // This file contains JavaScript code for the frontend. It handles fetching book data from the backend and dynamically populating the book list on the webpage.
 let currentPage = 1; // Página actual
 let booksPerPage = 10; // Libros por página
-
+let advancedSearch = false; // Búsqueda avanzada activada
 
 // This function is called when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Manejar búsqueda simple
     document.getElementById('simple-search-btn').addEventListener('click', function () {
-        const keyword = document.getElementById('simple-search').value.trim();
-        fetchBooks({ title: keyword });
+        advancedSearch = false;
+        searchBooks();
     });
 
     // Mostrar/ocultar formulario de búsqueda avanzada
@@ -21,14 +21,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Manejar búsqueda avanzada
     document.getElementById('advanced-search-submit').addEventListener('click', function () {
-        const keyword = document.getElementById('simple-search').value.trim();
-        const author = document.getElementById('author').value.trim();
-        const publisher = document.getElementById('publisher').value.trim();
-        const pages = document.getElementById('pages').value.trim();
-        const publicationDate = document.getElementById('publication-date').value.trim();
-        const rating = document.getElementById('rating').value.trim();
-
-        fetchBooks({ title: keyword, author, publisher, pages, publicationDate, rating });
+        advancedSearch = true;
+        searchBooks();
     });
 
 
@@ -36,23 +30,41 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('books-per-page').addEventListener('change', function (e) {
         booksPerPage = parseInt(e.target.value);
         currentPage = 1; // TODO: Mejorar la paginación
-        fetchBooks();
+        searchBooks();
     });
 
     // Manejar el botón "Previous"
     document.getElementById('prev-page').addEventListener('click', function () {
         if (currentPage > 1) {
             currentPage--;
-            fetchBooks();
+            searchBooks();
         }
     });
 
     // Manejar el botón "Next"
     document.getElementById('next-page').addEventListener('click', function () {
         currentPage++;
-        fetchBooks();
+        searchBooks();
     });
 });
+
+function searchBooks() {
+    const keyword = document.getElementById('simple-search').value.trim();
+    if ( advancedSearch) {
+        // Obtener valores de los campos de búsqueda avanzada
+        const author = document.getElementById('author').value.trim();
+        const publisher = document.getElementById('publisher').value.trim();
+        const pages = document.getElementById('pages').value.trim();
+        const publicationDate = document.getElementById('publication-date').value.trim();
+        const rating = document.getElementById('rating').value.trim();
+        fetchBooks({ title: keyword, author, publisher, pages, publicationDate, rating });
+    } else {        
+        // Realizar búsqueda simple
+        fetchBooks({ title: keyword });
+    }
+
+
+}
 
 function fetchBooks(filters = {}) {
     const params = new URLSearchParams({
