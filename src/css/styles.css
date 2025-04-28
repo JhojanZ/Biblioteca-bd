@@ -1,0 +1,43 @@
+/* Custom styles for the library webpage */
+
+body {
+    background-color: #f8f9fa; /* Light background for the page */
+    font-family: Arial, sans-serif; /* Font style for the text */
+}
+
+.navbar {
+    margin-bottom: 20px; /* Space below the navigation bar */
+}
+
+.book-list {
+    margin: 20px; /* Margin around the book list */
+}
+
+.book-item {
+    border: 1px solid #dee2e6; /* Border around each book item */
+    border-radius: 5px; /* Rounded corners for book items */
+    padding: 15px; /* Padding inside book items */
+    margin-bottom: 15px; /* Space between book items */
+    background-color: #ffffff; /* White background for book items */
+}
+
+.book-title {
+    font-size: 1.5em; /* Larger font size for book titles */
+    color: #343a40; /* Dark color for book titles */
+}
+
+.book-authors {
+    font-style: italic; /* Italic style for authors */
+    color: #6c757d; /* Gray color for authors */
+}
+
+.book-rating {
+    color: #ffc107; /* Gold color for ratings */
+}
+
+.footer {
+    text-align: center; /* Centered text for footer */
+    padding: 20px; /* Padding for footer */
+    background-color: #343a40; /* Dark background for footer */
+    color: #ffffff; /* White text for footer */
+}
