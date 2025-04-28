@@ -27,6 +27,7 @@ db.connect((err) => {
 });
 
 
+
 app.get('/api/books', (req, res) => {
     const { page = 1, limit = 10, title, author, publisher, pages, publicationDate, rating } = req.query;
     const offset = (page - 1) * limit;
@@ -71,6 +72,21 @@ app.get('/api/books', (req, res) => {
     });
 });
 
+
+app.get('/api/books/:id', (req, res) => {
+    const bookID = req.params.id;
+
+    const query = `SELECT * FROM Libros WHERE bookID = ?`;
+    db.query(query, [bookID], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Database query failed' });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ error: 'Book not found' });
+        }
+        res.json(results[0]);
+    });
+});
 
 // Start the server
 app.listen(port, () => {
