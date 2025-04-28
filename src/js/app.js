@@ -8,6 +8,30 @@ let lastConsulted = null; // Última consulta realizada
 document.addEventListener('DOMContentLoaded', function() {
     const lastQuery = JSON.parse(localStorage.getItem('lastQuery'));
 
+    document.getElementById('login-btn').addEventListener('click', function() {
+        login();
+    });
+
+    // Manejar la creación de préstamos
+    document.getElementById('create-loan-btn').addEventListener('click', function() {
+        const bookID = document.getElementById('book-id').value.trim();
+        const userID = document.getElementById('user-id').value.trim();
+
+        fetch('http://localhost:3000/api/loans', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ bookID, userID })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to create loan');
+            }
+            return response.json();
+        })
+        .then(data => alert(data.message))
+        .catch(error => alert(error.message));
+    });
+
     if (lastQuery) {
         // Restaurar los valores de la última consulta
         currentPage = lastQuery.currentPage || 1;
@@ -92,6 +116,28 @@ document.addEventListener('DOMContentLoaded', function() {
         searchBooks();
     });
 });
+
+function login(){
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    fetch('http://localhost:3000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Invalid credentials');
+        }
+        return response.json();
+    })
+    .then(data => {
+        alert(data.message);
+        window.location.href = 'add-book.html';
+    })
+    .catch(error => alert(error.message));
+}
 
 function searchBooks() {
     const keyword = document.getElementById('simple-search').value.trim();

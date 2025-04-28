@@ -1,0 +1,25 @@
+# TODO: Funciones para la biblioteca
+
+## Queries (Consultas)
+1. Buscar libros por título.
+2. Buscar libros por autor.
+3. Buscar libros por género.
+4. Buscar libros por ISBN.
+5. Consultar disponibilidad de un libro.
+6. Listar libros más prestados.
+7. Listar libros nuevos.
+8. Consultar historial de préstamos de un usuario.
+9. Consultar información detallada de un libro.
+10. Buscar libros por palabras clave.
+
+## Updates (Actualizaciones por parte de los administradores)
+1. Agregar un nuevo libro al catálogo.
+2. Editar información de un libro existente.
+3. Eliminar un libro del catálogo.
+4. Registrar un préstamo de libro.
+5. Registrar la devolución de un libro.
+6. Actualizar el estado de disponibilidad de un libro.
+7. Agregar un nuevo usuario al sistema.
+8. Editar información de un usuario.
+9. Eliminar un usuario del sistema.
+10. Generar reportes de actividad (préstamos, devoluciones, etc.).

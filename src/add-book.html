@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Book</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">Library</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="add-book.html">Add Book</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Formulario para agregar libros -->
+    <div class="container mt-4">
+        <div class="card p-3">
+            <h5>Add New Book</h5>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="book-title">Title</label>
+                    <input id="book-title" type="text" class="form-control" placeholder="Enter book title">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="book-author">Author</label>
+                    <input id="book-author" type="text" class="form-control" placeholder="Enter author name">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="book-publisher">Publisher</label>
+                    <input id="book-publisher" type="text" class="form-control" placeholder="Enter publisher name">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="book-pages">Number of Pages</label>
+                    <input id="book-pages" type="number" class="form-control" placeholder="Enter number of pages">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="book-date">Publication Date</label>
+                    <input id="book-date" type="date" class="form-control">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="book-rating">Rating (1-5)</label>
+                    <select id="book-rating" class="form-control">
+                        <option value="">Select rating</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+            <button id="add-book-btn" class="btn btn-success">Add Book</button>
+        </div>
+
+        <!-- Formulario para agregar préstamos -->
+    <div class="card p-3">
+        <h5>Register Loan</h5>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="loan-book-id">Book ID</label>
+                <input id="loan-book-id" type="text" class="form-control" placeholder="Enter Book ID">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="loan-user-id">User ID</label>
+                <input id="loan-user-id" type="text" class="form-control" placeholder="Enter User ID">
+            </div>
+        </div>
+        <button id="register-loan-btn" class="btn btn-primary">Register Loan</button>
+    </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/add-book.js"></script>
+</body>
+</html>
