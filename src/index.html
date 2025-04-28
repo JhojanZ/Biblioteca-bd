@@ -31,6 +31,57 @@
 
     <div class="container mt-4">
         <h1 class="text-center">Book List</h1>
+
+        <!-- Barra de búsqueda -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <!-- Búsqueda simple -->
+            <div class="input-group" style="width: 50%;">
+                <input id="simple-search" type="text" class="form-control" placeholder="Search by title..." />
+                <div class="input-group-append">
+                    <button id="simple-search-btn" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+
+            <!-- Botón para búsqueda avanzada -->
+            <button id="advanced-search-btn" class="btn btn-secondary">Advanced Search</button>
+        </div>
+
+        <!-- Formulario de búsqueda avanzada (oculto por defecto) -->
+        <div id="advanced-search-form" class="card p-3 mb-3" style="display: none;">
+            <h5>Advanced Search</h5>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="author">Author</label>
+                    <input id="author" type="text" class="form-control" placeholder="Author name">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="publisher">Publisher</label>
+                    <input id="publisher" type="text" class="form-control" placeholder="Publisher name">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="pages">Number of Pages</label>
+                    <input id="pages" type="number" class="form-control" placeholder="e.g., 300">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="publication-date">Publication Date</label>
+                    <input id="publication-date" type="date" class="form-control">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="rating">Rating (1-5)</label>
+                    <select id="rating" class="form-control">
+                        <option value="">Any</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+            <button id="advanced-search-submit" class="btn btn-primary">Search</button>
+        </div>
     
         <!-- Controles de paginación -->
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -40,7 +91,6 @@
                     <option value="5">5</option>
                     <option value="10" selected>10</option>
                     <option value="20">20</option>
-                    <option value="50">50</option>
                 </select>
             </div>
             <div>

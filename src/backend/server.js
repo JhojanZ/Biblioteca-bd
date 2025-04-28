@@ -28,12 +28,42 @@ db.connect((err) => {
 
 
 app.get('/api/books', (req, res) => {
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
+    const { page = 1, limit = 10, title, author, publisher, pages, publicationDate, rating } = req.query;
     const offset = (page - 1) * limit;
 
-    const query = `SELECT * FROM Libros LIMIT ${limit} OFFSET ${offset}`;
-    db.query(query, (err, results) => {
+    let query = `SELECT * FROM Libros WHERE 1=1`;
+    const params = [];
+
+    if (title) {
+        query += ` AND title LIKE ?`;
+        params.push(`%${title}%`);
+    }
+    if (author) {
+        query += ` AND authors LIKE ?`;
+        params.push(`%${author}%`);
+    }
+    if (publisher) {
+        query += ` AND publisher LIKE ?`;
+        params.push(`%${publisher}%`);
+    }
+    if (pages) {
+        query += ` AND num_pages = ?`;
+        params.push(pages);
+    }
+    if (publicationDate) {
+        query += ` AND publication_date < ?`;
+        params.push(publicationDate);
+    }
+    if (rating) {
+        query += ` AND average_rating >= ?`;
+        params.push(rating);
+    }
+
+    query += ` LIMIT ? OFFSET ?`;
+    params.push(parseInt(limit), parseInt(offset));
+
+    console.log(`Executing query: ${query} |with params: ${params}`);
+    db.query(query, params, (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Database query failed' });
         }
