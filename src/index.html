@@ -35,60 +35,60 @@
             <h5>Login</h5>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="username">Username</label>
-                    <input id="username" type="text" class="form-control" placeholder="Enter your username">
+                    <label for="username">Codigo</label>
+                    <input id="username" type="text" class="form-control" placeholder="Ingresa tu codigo">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="password">Password</label>
-                    <input id="password" type="password" class="form-control" placeholder="Enter your password">
+                    <label for="password">Contraseña</label>
+                    <input id="password" type="password" class="form-control" placeholder="Ingresa tu contraseña">
                 </div>
             </div>
-            <button id="login-btn" class="btn btn-primary">Login</button>
+            <button id="login-btn" class="btn btn-primary">Iniciar Sesión</button>
         </div>
 
         <!-- Barra de búsqueda -->
         <div class="d-flex justify-content-between align-items-center mb-3">
             <!-- Búsqueda simple -->
             <div class="input-group" style="width: 50%;">
-                <input id="simple-search" type="text" class="form-control" placeholder="Search by title..." />
+                <input id="simple-search" type="text" class="form-control" placeholder="Buscar por título..." />
                 <div class="input-group-append">
-                    <button id="simple-search-btn" class="btn btn-primary">Search</button>
+                    <button id="simple-search-btn" class="btn btn-primary">Buscar</button>
                 </div>
             </div>
 
             <!-- Botón para limpiar filtros -->
-            <button id="clear-filters-btn" class="btn btn-danger mt-2">Clear Filters</button>
+            <button id="clear-filters-btn" class="btn btn-danger mt-2">Limpiar Filtros</button>
 
             <!-- Botón para búsqueda avanzada -->
-            <button id="advanced-search-btn" class="btn btn-secondary">Advanced Search</button>
+            <button id="advanced-search-btn" class="btn btn-secondary">Búsqueda Avanzada</button>
         </div>
 
         <!-- Formulario de búsqueda avanzada (oculto por defecto) -->
         <div id="advanced-search-form" class="card p-3 mb-3" style="display: none;">
-            <h5>Advanced Search</h5>
+            <h5>Búsqueda Avanzada</h5>
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="author">Author</label>
-                    <input id="author" type="text" class="form-control" placeholder="Author name">
+                    <label for="author">Autor</label>
+                    <input id="author" type="text" class="form-control" placeholder="Nombre del autor">
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="publisher">Publisher</label>
-                    <input id="publisher" type="text" class="form-control" placeholder="Publisher name">
+                    <label for="publisher">Editorial</label>
+                    <input id="publisher" type="text" class="form-control" placeholder="Nombre de la editorial">
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="pages">Number of Pages</label>
+                    <label for="pages">Número de Páginas</label>
                     <input id="pages" type="number" class="form-control" placeholder="e.g., 300">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="publication-date">Publication Date</label>
+                    <label for="publication-date">Fecha de Publicación</label>
                     <input id="publication-date" type="date" class="form-control">
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="rating">Rating (1-5)</label>
+                    <label for="rating">Calificación (1-5)</label>
                     <select id="rating" class="form-control">
-                        <option value="">Any</option>
+                        <option value="">Cualquiera</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -97,22 +97,25 @@
                     </select>
                 </div>
             </div>
-            <button id="advanced-search-submit" class="btn btn-primary">Search</button>
+            <button id="advanced-search-submit" class="btn btn-primary">Buscar</button>
         </div>
     
         <!-- Controles de paginación -->
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-                <label for="books-per-page">Books per page:</label>
+                <label for="books-per-page">Filas por página:</label>
                 <select id="books-per-page" class="form-control d-inline-block" style="width: auto;">
-                    <option value="5">5</option>
-                    <option value="10" selected>10</option>
-                    <option value="20">20</option>
+                    <option value="3">1</option>
+                    <option value="6">2</option>
+                    <option value="9">3</option>
+                    <option value="12" selected>4</option>
+                    <option value="21">7</option>
+                    <option value="30">10</option>
                 </select>
             </div>
             <div>
-                <button id="prev-page" class="btn btn-secondary" disabled>Previous</button>
-                <button id="next-page" class="btn btn-secondary">Next</button>
+                <button id="prev-page" class="btn btn-secondary" disabled>Anterior</button>
+                <button id="next-page" class="btn btn-secondary">Siguiente</button>
             </div>
         </div>
     

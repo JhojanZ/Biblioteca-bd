@@ -1,10 +1,15 @@
 const db = require('./conexiones');
 
 const getLibros = (params, callback) => {
-    const { title, author, publisher, pages, publicationDate, rating, limit, offset } = params;
+    const { bookID, title, author, publisher, pages, publicationDate, rating, limit, offset } = params;
+    console.log(`Recibiendo parámetros: ${JSON.stringify(params)}`);
     let query = `SELECT * FROM Libros WHERE 1=1`;
     const queryParams = [];
 
+    if (bookID) {
+        query += ` AND bookID = ?`;
+        queryParams.push(bookID);
+    }
     if (title) {
         query += ` AND title LIKE ?`;
         queryParams.push(`%${title}%`);
@@ -29,10 +34,18 @@ const getLibros = (params, callback) => {
         query += ` AND average_rating >= ?`;
         queryParams.push(rating);
     }
+    if (limit) {
+        query += ` LIMIT ?`;
+        queryParams.push(parseInt(limit));
+    }
+    if (offset) {
+        query += ` OFFSET ?`;
+        queryParams.push(parseInt(offset));
+    }
 
-    query += ` LIMIT ? OFFSET ?`;
-    queryParams.push(parseInt(limit), parseInt(offset));
 
+
+    console.log(`Executing query: ${query} | with params: ${queryParams}`);
     db.query(query, queryParams, callback);
 };
 

@@ -127,7 +127,6 @@ function clearFilters() {
     BusquedaAvanzada = false;
     paginaActual = 1;
 
-    // Limpiar la última consulta guardada en localStorage
     localStorage.removeItem('lastQuery');
     fetchBooks();
 }
