@@ -1,10 +1,8 @@
-// This file contains JavaScript code for the frontend. It handles fetching book data from the backend and dynamically populating the book list on the webpage.
-let currentPage = 1; // Página actual
-let booksPerPage = 10; // Libros por página
-let advancedSearch = false; // Búsqueda avanzada activada
-let lastConsulted = null; // Última consulta realizada  
+let paginaActual = 1;
+let LibrosPorPagina = 10; 
+let BusquedaAvanzada = false; 
+let lastConsulted = null; 
 
-// This function is called when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     const lastQuery = JSON.parse(localStorage.getItem('lastQuery'));
 
@@ -24,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Manejar búsqueda simple
     document.getElementById('simple-search-btn').addEventListener('click', function () {
-        advancedSearch = false;
+        BusquedaAvanzada = false;
         searchBooks();
     });
 
@@ -36,28 +34,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Manejar búsqueda avanzada
     document.getElementById('advanced-search-submit').addEventListener('click', function () {
-        advancedSearch = true;
+        BusquedaAvanzada = true;
         searchBooks();
     });
 
     // Manejar el cambio de número de libros por página
     document.getElementById('books-per-page').addEventListener('change', function (e) {
-        booksPerPage = parseInt(e.target.value);
-        currentPage = 1; 
+        LibrosPorPagina = parseInt(e.target.value);
+        paginaActual = 1; 
         searchBooks();
     });
 
     // Manejar el botón "Previous"
     document.getElementById('prev-page').addEventListener('click', function () {
-        if (currentPage > 1) {
-            currentPage--;
+        if (paginaActual > 1) {
+            paginaActual--;
             searchBooks();
         }
     });
 
     // Manejar el botón "Next"
     document.getElementById('next-page').addEventListener('click', function () {
-        currentPage++;
+        paginaActual++;
         searchBooks();
     });
 });
@@ -86,7 +84,8 @@ function login(){
 
 function searchBooks() {
     const keyword = document.getElementById('simple-search').value.trim();
-    if ( advancedSearch) {
+    console.log(`Searching books with keyword: ${keyword}`);
+    if ( BusquedaAvanzada) {
         const author = document.getElementById('author').value.trim();
         const publisher = document.getElementById('publisher').value.trim();
         const pages = document.getElementById('pages').value.trim();
@@ -100,8 +99,8 @@ function searchBooks() {
 
 function restaureFilters(lastQuery) {
     // Restaurar los valores de la última consulta
-    currentPage = lastQuery.currentPage || 1;
-    booksPerPage = lastQuery.booksPerPage || 10;
+    paginaActual = lastQuery.paginaActual || 1;
+    LibrosPorPagina = lastQuery.LibrosPorPagina || 10;
 
     if (lastQuery.filters) {
         const { title, author, publisher, pages, publicationDate, rating } = lastQuery.filters;
@@ -125,8 +124,8 @@ function clearFilters() {
     document.getElementById('rating').value = '';
     document.getElementById('simple-search').value = '';
 
-    advancedSearch = false;
-    currentPage = 1;
+    BusquedaAvanzada = false;
+    paginaActual = 1;
 
     // Limpiar la última consulta guardada en localStorage
     localStorage.removeItem('lastQuery');
@@ -135,8 +134,8 @@ function clearFilters() {
 
 function fetchBooks(filters = {}) {
     const params = new URLSearchParams({
-        page: currentPage,
-        limit: booksPerPage,
+        page: paginaActual,
+        limit: LibrosPorPagina,
         ...filters
     });
     console.log(`Fetching books with params: ${params.toString()}`);
@@ -144,9 +143,10 @@ function fetchBooks(filters = {}) {
 
     localStorage.setItem('lastQuery', JSON.stringify({
         filters,
-        currentPage,
-        booksPerPage
+        paginaActual,
+        LibrosPorPagina
     }));
+
 
 
     fetch(`http://localhost:3000/api/books?${params.toString()}`)
@@ -155,18 +155,18 @@ function fetchBooks(filters = {}) {
             const bookList = document.getElementById('book-list');
             bookList.innerHTML = '';
 
-            data.books.forEach(book => {
+            data.libros.forEach(libro => {
                 const listItem = document.createElement('div');
                 listItem.className = 'col-md-4 mb-4';
                 listItem.innerHTML = `
                     <div class="card h-100">
                         <div class="card-body">
-                            <h5 class="card-title">${book.title}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Publisher: ${book.publisher}</h6>
+                            <h5 class="card-title">${libro.title}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Publisher: ${libro.publisher}</h6>
                             <p class="card-text">
-                                <strong>Rating:</strong> ${book.average_rating}
+                                <strong>Rating:</strong> ${libro.average_rating}
                             </p>
-                            <a href="book-details.html?id=${book.bookID}" class="btn btn-primary">View Details</a>
+                            <a href="book-details.html?id=${libro.bookID}" class="btn btn-primary">View Details</a>
                         </div>
                     </div>
                 `;
@@ -174,8 +174,8 @@ function fetchBooks(filters = {}) {
             });
 
             // Habilitar o deshabilitar botones de navegación
-            document.getElementById('prev-page').disabled = currentPage === 1;
-            document.getElementById('next-page').disabled = data.books.length < booksPerPage;
+            document.getElementById('prev-page').disabled = paginaActual === 1;
+            document.getElementById('next-page').disabled = data.libros.length < LibrosPorPagina;
         })
         .catch(error => console.error('Error fetching books:', error));
 }
