@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
+
+    console.log('Book details page loaded');
     const params = new URLSearchParams(window.location.search);
     const bookID = params.get('id');
 
@@ -6,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('book-details').innerHTML = '<p class="text-danger">Book ID not provided.</p>';
         return;
     }
-
+    
     fetch(`http://localhost:3000/api/books/${bookID}`)
         .then(response => response.json())
         .then(book => {

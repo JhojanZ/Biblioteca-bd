@@ -30,6 +30,7 @@
     </nav>
 
     <div class="container mt-4">
+        <!-- Formulario de inicio de sesión -->
         <div id="login-form" class="card p-3 mb-3">
             <h5>Login</h5>
             <div class="form-row">
@@ -44,23 +45,6 @@
             </div>
             <button id="login-btn" class="btn btn-primary">Login</button>
         </div>
-    
-        <!-- Menú de préstamos (oculto por defecto) -->
-        <div id="loan-menu" class="card p-3 mb-3" style="display: none;">
-            <h5>New Loan</h5>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="book-id">Book ID</label>
-                    <input id="book-id" type="text" class="form-control" placeholder="Enter Book ID">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="user-id">User ID</label>
-                    <input id="user-id" type="text" class="form-control" placeholder="Enter User ID">
-                </div>
-            </div>
-            <button id="create-loan-btn" class="btn btn-success">Create Loan</button>
-        </div>
-        <h1 class="text-center">Book List</h1>
 
         <!-- Barra de búsqueda -->
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -73,7 +57,7 @@
             </div>
 
             <!-- Botón para limpiar filtros -->
-<button id="clear-filters-btn" class="btn btn-danger mt-2">Clear Filters</button>
+            <button id="clear-filters-btn" class="btn btn-danger mt-2">Clear Filters</button>
 
             <!-- Botón para búsqueda avanzada -->
             <button id="advanced-search-btn" class="btn btn-secondary">Advanced Search</button>

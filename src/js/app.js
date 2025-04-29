@@ -12,68 +12,14 @@ document.addEventListener('DOMContentLoaded', function() {
         login();
     });
 
-    // Manejar la creación de préstamos
-    document.getElementById('create-loan-btn').addEventListener('click', function() {
-        const bookID = document.getElementById('book-id').value.trim();
-        const userID = document.getElementById('user-id').value.trim();
-
-        fetch('http://localhost:3000/api/loans', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ bookID, userID })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to create loan');
-            }
-            return response.json();
-        })
-        .then(data => alert(data.message))
-        .catch(error => alert(error.message));
-    });
-
     if (lastQuery) {
-        // Restaurar los valores de la última consulta
-        currentPage = lastQuery.currentPage || 1;
-        booksPerPage = lastQuery.booksPerPage || 10;
-
-        // Rellenar los campos de entrada con los valores de la última consulta
-        if (lastQuery.filters) {
-            const { title, author, publisher, pages, publicationDate, rating } = lastQuery.filters;
-
-            if (title) document.getElementById('simple-search').value = title;
-            if (author) document.getElementById('author').value = author;
-            if (publisher) document.getElementById('publisher').value = publisher;
-            if (pages) document.getElementById('pages').value = pages;
-            if (publicationDate) document.getElementById('publication-date').value = publicationDate;
-            if (rating) document.getElementById('rating').value = rating;
-        }
-
-        // Cargar los libros con la última consulta
-        fetchBooks(lastQuery.filters || {});
+        restaureFilters(lastQuery); 
     } else {
-        // Si no hay consulta guardada, cargar los libros por defecto
         fetchBooks();
     }
 
     document.getElementById('clear-filters-btn').addEventListener('click', function () {
-        // Limpiar los campos de búsqueda avanzada
-        document.getElementById('author').value = '';
-        document.getElementById('publisher').value = '';
-        document.getElementById('pages').value = '';
-        document.getElementById('publication-date').value = '';
-        document.getElementById('rating').value = '';
-        document.getElementById('simple-search').value = '';
-    
-        // Restablecer la búsqueda avanzada y la página actual
-        advancedSearch = false;
-        currentPage = 1;
-    
-        // Limpiar la última consulta guardada en localStorage
-        localStorage.removeItem('lastQuery');
-    
-        // Recargar los libros con los valores predeterminados
-        fetchBooks();
+        clearFilters();
     });
 
     // Manejar búsqueda simple
@@ -94,11 +40,10 @@ document.addEventListener('DOMContentLoaded', function() {
         searchBooks();
     });
 
-
-    // Manejar el cambio en el selector de libros por página
+    // Manejar el cambio de número de libros por página
     document.getElementById('books-per-page').addEventListener('change', function (e) {
         booksPerPage = parseInt(e.target.value);
-        currentPage = 1; // TODO: Mejorar la paginación
+        currentPage = 1; 
         searchBooks();
     });
 
@@ -142,7 +87,6 @@ function login(){
 function searchBooks() {
     const keyword = document.getElementById('simple-search').value.trim();
     if ( advancedSearch) {
-        // Obtener valores de los campos de búsqueda avanzada
         const author = document.getElementById('author').value.trim();
         const publisher = document.getElementById('publisher').value.trim();
         const pages = document.getElementById('pages').value.trim();
@@ -150,9 +94,43 @@ function searchBooks() {
         const rating = document.getElementById('rating').value.trim();
         fetchBooks({ title: keyword, author, publisher, pages, publicationDate, rating });
     } else {        
-        // Realizar búsqueda simple
         fetchBooks({ title: keyword });
     }
+}
+
+function restaureFilters(lastQuery) {
+    // Restaurar los valores de la última consulta
+    currentPage = lastQuery.currentPage || 1;
+    booksPerPage = lastQuery.booksPerPage || 10;
+
+    if (lastQuery.filters) {
+        const { title, author, publisher, pages, publicationDate, rating } = lastQuery.filters;
+
+        if (title) document.getElementById('simple-search').value = title;
+        if (author) document.getElementById('author').value = author;
+        if (publisher) document.getElementById('publisher').value = publisher;
+        if (pages) document.getElementById('pages').value = pages;
+        if (publicationDate) document.getElementById('publication-date').value = publicationDate;
+        if (rating) document.getElementById('rating').value = rating;
+    }
+
+    fetchBooks(lastQuery.filters || {});
+}
+
+function clearFilters() {
+    document.getElementById('author').value = '';
+    document.getElementById('publisher').value = '';
+    document.getElementById('pages').value = '';
+    document.getElementById('publication-date').value = '';
+    document.getElementById('rating').value = '';
+    document.getElementById('simple-search').value = '';
+
+    advancedSearch = false;
+    currentPage = 1;
+
+    // Limpiar la última consulta guardada en localStorage
+    localStorage.removeItem('lastQuery');
+    fetchBooks();
 }
 
 function fetchBooks(filters = {}) {
