@@ -2,7 +2,6 @@ const db = require('./conexiones');
 
 const getLibros = (params, callback) => {
     const { bookID, title, author, publisher, pages, publicationDate, rating, limit, offset } = params;
-    console.log(`Recibiendo parámetros: ${JSON.stringify(params)}`);
     let query = `SELECT * FROM Libros WHERE 1=1`;
     const queryParams = [];
 
@@ -43,10 +42,28 @@ const getLibros = (params, callback) => {
         queryParams.push(parseInt(offset));
     }
 
-
-
-    console.log(`Executing query: ${query} | with params: ${queryParams}`);
     db.query(query, queryParams, callback);
 };
 
-module.exports = { getLibros };
+const insertarLibro = (params, callback) => {
+    const { title, author, publisher, pages, publicationDate, isbn, isbn13, language } = params;
+    const query = `INSERT INTO Libros (title, authors, publisher, num_pages, publication_date, isbn, isbn13, language_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+    const queryParams = [title, author, publisher, parseInt(pages), publicationDate, isbn, isbn13, language];
+    
+    db.query(query, queryParams, (err, results) => {
+        if (err) {
+            console.error('Error al insertar el libro:', err);
+            return callback(err);
+        }
+        callback(null, results);
+    });
+    
+};
+
+const eliminarLibro = (bookID, callback) => {
+    console.log(`Eliminando libro con ID: ${bookID}`);
+    const query = `DELETE FROM Libros WHERE bookID = ?`;
+    db.query(query, [bookID], callback);
+};
+
+module.exports = { getLibros, insertarLibro, eliminarLibro };
