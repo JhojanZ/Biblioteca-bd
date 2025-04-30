@@ -1,87 +1,3 @@
-let paginaActual = 1;
-let LibrosPorPagina = 10; 
-let BusquedaAvanzada = false; 
-let lastConsulted = null; 
-
-document.addEventListener('DOMContentLoaded', function() {
-    const lastQuery = JSON.parse(localStorage.getItem('lastQuery'));
-
-    document.getElementById('login-btn').addEventListener('click', function() {
-        login();
-    });
-
-    if (lastQuery) {
-        restaureFilters(lastQuery); 
-    } else {
-        fetchBooks();
-    }
-
-    document.getElementById('clear-filters-btn').addEventListener('click', function () {
-        clearFilters();
-    });
-
-    // Manejar búsqueda simple
-    document.getElementById('simple-search-btn').addEventListener('click', function () {
-        BusquedaAvanzada = false;
-        searchBooks();
-    });
-
-    // Mostrar/ocultar formulario de búsqueda avanzada
-    document.getElementById('advanced-search-btn').addEventListener('click', function () {
-        const form = document.getElementById('advanced-search-form');
-        form.style.display = form.style.display === 'none' ? 'block' : 'none';
-    });
-
-    // Manejar búsqueda avanzada
-    document.getElementById('advanced-search-submit').addEventListener('click', function () {
-        BusquedaAvanzada = true;
-        searchBooks();
-    });
-
-    // Manejar el cambio de número de libros por página
-    document.getElementById('books-per-page').addEventListener('change', function (e) {
-        LibrosPorPagina = parseInt(e.target.value);
-        paginaActual = 1; 
-        searchBooks();
-    });
-
-    // Manejar el botón "Previous"
-    document.getElementById('prev-page').addEventListener('click', function () {
-        if (paginaActual > 1) {
-            paginaActual--;
-            searchBooks();
-        }
-    });
-
-    // Manejar el botón "Next"
-    document.getElementById('next-page').addEventListener('click', function () {
-        paginaActual++;
-        searchBooks();
-    });
-});
-
-function login(){
-    const username = document.getElementById('username').value.trim();
-    const password = document.getElementById('password').value.trim();
-
-    fetch('http://localhost:3000/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Invalid credentials');
-        }
-        return response.json();
-    })
-    .then(data => {
-        alert(data.message);
-        window.location.href = 'add-book.html';
-    })
-    .catch(error => alert(error.message));
-}
-
 function searchBooks() {
     const keyword = document.getElementById('simple-search').value.trim();
     console.log(`Searching books with keyword: ${keyword}`);
@@ -165,7 +81,7 @@ function fetchBooks(filters = {}) {
                             <p class="card-text">
                                 <strong>Rating:</strong> ${libro.average_rating}
                             </p>
-                            <a href="book-details.html?id=${libro.bookID}" class="btn btn-primary">View Details</a>
+                            <a href="vistaCompletaLibro/vistaCompletaLibro.html?id=${libro.bookID}" class="btn btn-primary">Mostrar Detalles</a>
                         </div>
                     </div>
                 `;
