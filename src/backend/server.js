@@ -3,6 +3,7 @@ const cors = require('cors');
 const loginRutas = require('./rutas/loginRutas');
 const librosRutas = require('./rutas/librosRutas');
 const prestamosRutas = require('./rutas/prestamosRutas');
+const usuariosRutas = require('./rutas/usuariosRutas');
 
 const app = express();
 const port = 3000;
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use('/api', loginRutas);
 app.use('/api', librosRutas);
 app.use('/api', prestamosRutas);
+app.use('/api', usuariosRutas);
 
 // Start the server
 app.listen(port, () => {

@@ -49,8 +49,8 @@ function clearFilters() {
 
 function fetchBooks(filters = {}) {
     const params = new URLSearchParams({
-        page: paginaActual,
-        limit: LibrosPorPagina,
+        page: window.paginaActual,
+        limit: window.LibrosPorPagina,
         ...filters
     });
     console.log(`Fetching books with params: ${params.toString()}`);

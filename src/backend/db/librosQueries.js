@@ -42,13 +42,15 @@ const getLibros = (params, callback) => {
         queryParams.push(parseInt(offset));
     }
 
+    console.log('Query:', query);  
+    console.log('Query Params:', queryParams); 
     db.query(query, queryParams, callback);
 };
 
 const insertarLibro = (params, callback) => {
-    const { title, author, publisher, pages, publicationDate, isbn, isbn13, language } = params;
-    const query = `INSERT INTO Libros (title, authors, publisher, num_pages, publication_date, isbn, isbn13, language_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-    const queryParams = [title, author, publisher, parseInt(pages), publicationDate, isbn, isbn13, language];
+    const { title, author, publisher, pages, publicationDate, isbn, isbn13, language, cant } = params;
+    const query = `INSERT INTO Libros (title, authors, publisher, num_pages, publication_date, isbn, isbn13, language_code, text_reviews_count) VALUES (?, ?, ?, ?, ?, ?, ?, ?) `;
+    const queryParams = [title, author, publisher, parseInt(pages), publicationDate, isbn, isbn13, language, cant];
     
     db.query(query, queryParams, (err, results) => {
         if (err) {

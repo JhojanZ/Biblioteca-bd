@@ -5,25 +5,19 @@ const { getLibros, insertarLibro } = require('../db/librosQueries');
 router.get('/books', (req, res) => {
     const { page = 1, limit = 10, ...filters } = req.query;
     const offset = (page - 1) * limit;
-
-    console.log(`Parámetros de consulta: ${JSON.stringify(filters)}`);
-
+    
     getLibros({ ...filters, limit, offset }, (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Database query failed' });
         }
-        console.log('Resultados obtenidos:', results);
         res.json({ libros: results });
     });
 });
 
 router.get('/books/:id', (req, res) => {
     const bookID = req.params.id;
-    console.log(`Buscando libro con ID: ${bookID}`);
 
     getLibros({ bookID }, (err, results) => {
-        console.log(`Resultados de la búsqueda: ${JSON.stringify(results)}`);
-        console.log(`Resultados de la búsqueda: ${JSON.stringify(results[0])}`);
         if (err) {
             return res.status(500).json({ error: 'Database query failed' });
         }
@@ -36,10 +30,10 @@ router.get('/books/:id', (req, res) => {
 
 // Ruta para agregar un nuevo libro
 router.post('/books/nuevo_libro', (req, res) => {
-    let { title, author, publisher, pages, publicationDate, isbn, isbn13, language } = req.body;
+    let { title, author, publisher, pages, publicationDate, isbn, isbn13, language, cant } = req.body;
     console.log(`Agregando libro: ${JSON.stringify(req.body)}`);
 
-    if (!title || !author || !publisher || !pages || !publicationDate || !language) {
+    if (!title || !author || !publisher || !pages || !publicationDate || !language || !cant) {
         return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
@@ -53,7 +47,7 @@ router.post('/books/nuevo_libro', (req, res) => {
         isbn13 = 0;
     }
 
-    insertarLibro({ title, author, publisher, pages, publicationDate, isbn, isbn13, language }, (err, results) => {
+    insertarLibro({ title, author, publisher, pages, publicationDate, isbn, isbn13, language, cant }, (err, results) => {
         console.log("Resultados de la inserción:", results);
         if (err) {
             console.error('Error al insertar el libro:', err);

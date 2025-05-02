@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    console.log("asdfghjkl)");
     document.getElementById('add-book-btn').addEventListener('click', function () {
         const title = document.getElementById('book-title').value.trim();
         const author = document.getElementById('book-author').value.trim();
@@ -8,8 +9,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const isbn = document.getElementById('book-isbn').value.trim();
         const isbn13 = document.getElementById('book-isbn13').value.trim();
         const language = document.getElementById('book-language-code').value.trim();
+        const cant = document.getElementById('book-quantity');
 
-        if (!title || !author || !publisher || !pages || !publicationDate ||  !(isbn || isbn13) || !language) {
+        if (!title || !author || !publisher || !pages || !publicationDate ||  !(isbn || isbn13) || !language || !cant) {
             alert('Please fill in all fields.');
             return;
         }
@@ -17,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch('http://localhost:3000/api/books/nuevo_libro', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title, author, publisher, pages, publicationDate, isbn, isbn13, language })
+            body: JSON.stringify({ title, author, publisher, pages, publicationDate, isbn, isbn13, language, cant })
         })
         .then(response => {
             console.log('Response:', response);
@@ -37,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('book-isbn').value = '';
             document.getElementById('book-isbn13').value = '';
             document.getElementById('book-language-code').value = '';
+            document.getElementById('book-quantity').value = '';
         })
         .catch(error => alert(error.message));
     }); 
@@ -100,10 +103,11 @@ document.getElementById('fetch-loans-btn').addEventListener('click', function ()
                 document.getElementById('save-returns-btn').style.display = 'none';
                 return;
             }
-            console.log('Loaned books data:', data);
+            console.log('Prestamos data:', data);
 
             // Crear la tabla
-            const table = document.getElementsById('loaned-books-table');
+            const table = document.createElement('table');
+            table.id = 'loaned-books-table';
             table.className = 'table table-striped';
             table.innerHTML = `
                 <thead>

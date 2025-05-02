@@ -10,13 +10,13 @@ function login(){
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Invalid credentials');
+            throw new Error('Credenciales inválidas');
         }
         return response.json();
     })
     .then(data => {
         alert(data.message);
-        window.location.href = 'Administrador/agregarLibro.html';
+        window.location.href = '../Administrador/Administrador.html';
     })
     .catch(error => alert(error.message));
 }
