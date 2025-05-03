@@ -142,6 +142,7 @@ function initControlPrestamos() {
     console.log("registro: ", registerLoanBtn);
 
     if (registerLoanBtn) {
+        console.log("registerLoanBtn: ", registerLoanBtn);
         registerLoanBtn.addEventListener('click', () => {
             const bookId = document.getElementById('loan-book-id').value.trim();
             const userId = document.getElementById('loan-user-id').value.trim();
@@ -173,6 +174,7 @@ function initControlPrestamos() {
     }
 
     if (fetchLoansBtn) {
+        console.log("fetchLoansBtn: ", fetchLoansBtn);
         fetchLoansBtn.addEventListener('click', () => {
             const userId = document.getElementById('return-user-id').value.trim();
 
@@ -214,6 +216,7 @@ function initControlPrestamos() {
                                 const returnDate = new Date(book.Fecha_devolucion);
                                 const currentDate = new Date();
                                 const daysRemaining = Math.floor((returnDate - currentDate) / (1000 * 60 * 60 * 24));
+                                console.log("book: ", book);
 
                                 return `
                                     <tr>
@@ -222,7 +225,7 @@ function initControlPrestamos() {
                                         <td>${loanDate.toLocaleDateString()}</td>
                                         <td>${returnDate.toLocaleDateString()}</td>
                                         <td style="color: ${daysRemaining < 0 ? 'red' : 'inherit'};">${daysRemaining} días</td>
-                                        <td><input type="checkbox" data-book-id="${book.bookId}"></td>
+                                        <td><input type="checkbox" data-book-id="${book.bookID}"></td>
                                     </tr>
                                 `;
                             }).join('')}

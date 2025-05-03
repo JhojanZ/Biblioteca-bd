@@ -49,14 +49,14 @@ router.get('/prestamos/:userId', (req, res) => {
 });
 
 router.post('/prestamos/devoluciones', (req, res) => {
-    const { prestamosID } = req.body;
+    const { bookIds } = req.body;
     console.log('Received data for devoluciones:', req.body);
-    if (!prestamosID || prestamosID.length === 0) {
+    console.log('Received bookIds:', bookIds);
+    if (!bookIds || bookIds.length === 0) {
         return res.status(400).json({ error: 'No se proporcionaron préstamos para actualizar' });
     }
-    console.log('Received prestamosID:', prestamosID);
     console.log('Received request body:', req.body);
-    actualizarDevoluciones(prestamosID, (err) => {
+    actualizarDevoluciones(bookIds, (err) => {
         if (err) {
             return res.status(500).json({ error: 'Error al actualizar las devoluciones' });
         }
