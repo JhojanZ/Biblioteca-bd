@@ -37,13 +37,13 @@ const consultas = (param, callback) => {
             query = `SELECT * FROM Usuarios LIMIT ?`;
             break;
         case 'active-loans':
-            query = `SELECT * FROM Prestamos WHERE estado = 'activo' LIMIT ?`;
+            query = `SELECT P.*, U.email, U.Num_telefono, U.Dirección FROM Prestamos P JOIN Usuarios U ON P.Id_usuario = U.id_usuario WHERE estado = 0 LIMIT ?`;
             break;
         case 'overdue-loans':
-            query = `SELECT * FROM Prestamos WHERE Fecha_devolucion < CURDATE() LIMIT ?`;
+            query = `SELECT P.*, U.email, U.Num_telefono, U.Dirección FROM Prestamos P JOIN Usuarios U ON P.Id_usuario = U.id_usuario WHERE estado = 0 AND Fecha_devolucion < CURDATE() LIMIT ?`;
             break;
         case 'book-loans':
-            query = `SELECT * FROM LibrosPrestados LIMIT ?`;
+            query = `SELECT P.*, L.title FROM Prestamos P JOIN Libros L ON P.Id_libro = L.bookID WHERE P.Estado = 0 LIMIT ?`;
             break;
         default:
             return callback({ error: 'Tipo de consulta no válido' }, null);

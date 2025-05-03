@@ -168,7 +168,7 @@
         </div>
 
         <!-- Sección para ver usuarios y préstamos -->
-        <div id="view-users-section" class="card p-3" style="width: 95vw;">
+        <div id="view-users-section" class="card p-3" style="display: none; width: 95vw;">
             <div class="card p-3">
             <h5>Consultar Usuarios y Préstamos</h5>
             <div class="form-row">
@@ -184,7 +184,7 @@
                 </div>
                 <div class="form-group col-md-6">
                 <label for="rows-per-page">Cantidad de filas por página</label>
-                <input id="rows-per-page" type="number" class="form-control" placeholder="Ingrese la cantidad de filas por página" value="25" min="1">
+                <input id="rows-per-page" type="number" class="form-control" placeholder="Ingrese la cantidad de filas por página" value="100" min="1">
                 </div>
             </div>
             <button id="execute-query-btn" class="btn btn-primary">Ejecutar Consulta</button>
@@ -199,6 +199,7 @@
             document.getElementById('add-book-section').style.display = 'none';
             document.getElementById('loan-return-section').style.display = 'none';
             document.getElementById('add-user-section').style.display = 'none';
+            document.getElementById('view-users-section').style.display = 'none';
             
 
             // Mostrar la sección seleccionada
