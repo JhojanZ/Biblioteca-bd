@@ -77,9 +77,9 @@ function fetchBooks(filters = {}) {
                     <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title">${libro.title}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Publisher: ${libro.publisher}</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">Editorial: ${libro.publisher}</h6>
                             <p class="card-text">
-                                <strong>Rating:</strong> ${libro.average_rating}
+                                <strong>Puntuación:</strong> ${libro.average_rating}
                             </p>
                             <a href="vistaCompletaLibro/vistaCompletaLibro.html?id=${libro.bookID}" class="btn btn-primary">Mostrar Detalles</a>
                         </div>

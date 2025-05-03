@@ -1,7 +1,7 @@
 const db = require('./conexiones');
 
 const getLibros = (params, callback) => {
-    const { bookID, title, author, publisher, pages, publicationDate, rating, limit, offset } = params;
+    let { bookID, title, author, publisher, pages, publicationDate, rating, limit, offset } = params;
     let query = `SELECT * FROM Libros WHERE 1=1`;
     const queryParams = [];
 
@@ -11,6 +11,7 @@ const getLibros = (params, callback) => {
     }
     if (title) {
         query += ` AND title LIKE ?`;
+        title = title.toLowerCase();
         queryParams.push(`%${title}%`);
     }
     if (author) {
@@ -48,7 +49,8 @@ const getLibros = (params, callback) => {
 };
 
 const insertarLibro = (params, callback) => {
-    const { title, author, publisher, pages, publicationDate, isbn, isbn13, language, cant } = params;
+    let { title, author, publisher, pages, publicationDate, isbn, isbn13, language, cant } = params;
+    title = title.toLowerCase();
     const query = `INSERT INTO Libros (title, authors, publisher, num_pages, publication_date, isbn, isbn13, language_code, text_reviews_count) VALUES (?, ?, ?, ?, ?, ?, ?, ?) `;
     const queryParams = [title, author, publisher, parseInt(pages), publicationDate, isbn, isbn13, language, cant];
     

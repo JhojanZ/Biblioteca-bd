@@ -3,11 +3,11 @@ const router = express.Router();
 const { logLoginIntento, validarUsuario } = require('../db/loginQueries');
 
 router.post('/login', (req, res) => {
-    const { username: id_usuario, password } = req.body;
+    const { username: id_usuario, encryptedPassword } = req.body;
     const ip = req.ip;
     console.log(`Intento de inicio de sesión desde IP: ${ip} con nombre de usuario: ${id_usuario}`);
 
-    validarUsuario(id_usuario, password, (err, results) => {
+    validarUsuario(id_usuario, encryptedPassword, (err, results) => {
         if (err) {
             logLoginIntento(id_usuario, ip, 0, 'Error en la consulta a la base de datos');
             return res.status(500).json({ error: 'Error en la consulta a la base de datos' });

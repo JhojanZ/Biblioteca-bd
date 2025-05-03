@@ -1,12 +1,13 @@
 function login(){
     const username = document.getElementById('username').value.trim();
-    const password = document.getElementById('password').value.trim();
-    console.log(username, password);
+    let password = document.getElementById('password').value.trim();
+    const encryptedPassword = CryptoJS.SHA256(password).toString();
+    console.log(username, encryptedPassword);
 
     fetch('http://localhost:3000/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ username, encryptedPassword })
     })
     .then(response => {
         if (!response.ok) {

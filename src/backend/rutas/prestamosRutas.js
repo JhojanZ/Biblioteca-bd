@@ -4,29 +4,43 @@ const { crearPrestamo, obtenerPrestamosPorUsuario, actualizarDevoluciones } = re
 //const { obtenerLibrosPrestados } = require('../db/librosQueries');
 //const { obtenerUsuarios } = require('../db/usuariosQueries');
 
+const formatDateForMySQL = (dateObject) => {
+    const isoString = dateObject.toISOString();
+    // Cortamos la 'T' y la 'Z', y tomamos solo la parte de segundos
+    return isoString.slice(0, 19).replace('T', ' ');
+  };
+  
+
 router.post('/prestamos', (req, res) => {
-    const { bookID, userID } = req.body;
-    const date = new Date();
+    const { bookId, userId } = req.body;
+    const dat = new Date();
+    const endDat = new Date(dat);
+    endDat.setDate(endDat.getDate() + 7); // Sumar 7 días a la fecha actual
+    const date = formatDateForMySQL(dat);
+    const endDate = formatDateForMySQL(endDat);
     console.log('Received data:', req.body);
+    console.log('Received bookId:', bookId);
+    console.log('Received userId:', userId);
     
-    if (!bookID || !userID) {
+    if (!bookId || !userId) {
         return res.status(400).json({ error: 'Faltan datos requeridos' });
     }
 
-    
+    console.log("go to the load :D");
 
-    crearPrestamo(bookID, userID, date, (err, results) => {
+    crearPrestamo(bookId, userId, date, endDate, (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Error en la consulta a la base de datos' });
         }
-        res.json({ message: 'Préstamo creado exitosamente' });
+        res.json({  endDate : endDate,
+                    message: 'Préstamo creado exitosamente' });
     });
 });
 
 
-router.get('/prestamos/:userID', (req, res) => {
-    const { userID } = req.params;
-    obtenerPrestamosPorUsuario(userID, (err, results) => {
+router.get('/prestamos/:userId', (req, res) => {
+    const { userId } = req.params;
+    obtenerPrestamosPorUsuario(userId, (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Error al obtener los préstamos' });
         }
@@ -36,6 +50,7 @@ router.get('/prestamos/:userID', (req, res) => {
 
 router.post('/prestamos/devoluciones', (req, res) => {
     const { prestamosID } = req.body;
+    console.log('Received data for devoluciones:', req.body);
     if (!prestamosID || prestamosID.length === 0) {
         return res.status(400).json({ error: 'No se proporcionaron préstamos para actualizar' });
     }
