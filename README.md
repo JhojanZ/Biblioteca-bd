@@ -1,6 +1,11 @@
+### Para Empezar
+
 Para iniciar el servidor, diríjase a la carpeta `src/backend`, escriba el comando `node server.js` y el servidor comenzará a funcionar.
 
 Y abre el archivo src/frontend/Inicio/Inicio.html
+
+### Tecnologias usadas
+Se uso mysql, con el apoyo de un servidor de node.js para la base de datos. Y una interfaz con javascript y boostrap
 
 ### Nuevas Caracteristicas
 
